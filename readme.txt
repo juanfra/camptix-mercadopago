@@ -1,7 +1,7 @@
 === CampTix MercadoPago ===
 Contributors: juanfra
 Donate link: http://juanfra.me/donations/
-Tags: camptix, pagseguro
+Tags: camptix, mercadopago, tickets
 Requires at least: 3.6
 Tested up to: 4.1.1
 License: GPLv2 or later
@@ -49,6 +49,6 @@ You can contribute to the source code in our [GitHub](https://github.com/juanfra
 
 CampTix MercadoPago is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-CampTix PagSeguro is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+CampTix MercadoPago is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with CampTix MercadoPago. If not, see <http://www.gnu.org/licenses/>.
