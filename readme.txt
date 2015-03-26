@@ -1,11 +1,12 @@
 === CampTix MercadoPago ===
 Contributors: juanfra
-Donate link: http://juanfra.me/donations/
-Tags: camptix, mercadopago, tickets
+Tags: camptix, mercadopago, tickets, wordcamp
 Requires at least: 3.6
 Tested up to: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Stable Tag: 1.0.0
 
 Adds MercadoPago gateway to the CampTix plugin
 
@@ -14,6 +15,8 @@ Adds MercadoPago gateway to the CampTix plugin
 ### Add MercadoPago gateway to CampTix ###
 
 This plugin adds MercadoPago gateway to [CampTix](wordpress.org/extend/plugins/camptix/).
+
+With this plugin, users from different Latin American countries (Argentina, Brazil, Colombia, Venezuela and Mexico) will be able to process payments through one of the main payment processors, [MercadoPago](http://mercadopago.com)
 
 Please notice that CampTix must be installed and active.
 
