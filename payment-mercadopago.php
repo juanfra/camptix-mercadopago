@@ -4,6 +4,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
+if ( class_exists( 'CampTix_Payment_Method' ) && ! class_exists( 'CampTix_Payment_Method_MercadoPago' ) ) :
 /**
  * Implements the MercadoPago payment gateway.
  */
@@ -529,8 +530,11 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 
 
 } // Close CampTix_Payment_Method_MercadoPago class.
+endif;
 
 /**
  * Register the Gateway in CampTix.
  */
-camptix_register_addon( 'CampTix_Payment_Method_MercadoPago' );
+if ( function_exists( 'camptix_register_addon' ) ) {
+	camptix_register_addon( 'CampTix_Payment_Method_MercadoPago' );
+}
