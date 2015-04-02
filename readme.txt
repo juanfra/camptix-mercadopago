@@ -1,12 +1,12 @@
 === CampTix MercadoPago ===
-Contributors: juanfra
+Contributors: juanfra, andrezrv
 Tags: camptix, mercadopago, tickets, wordcamp
 Requires at least: 3.6
 Tested up to: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Stable Tag: 1.0.0
+Stable Tag: 1.0.1
 
 Adds MercadoPago gateway to the CampTix plugin
 
@@ -43,6 +43,12 @@ You can contribute to the source code in our [GitHub](https://github.com/juanfra
 
 
 == Changelog ==
+
+= 1.0.1: April 2, 2015 =
+
+* Added images for the public directory.
+* Added security checks so the site won't break if Camptix is not active. (props andrezrv)
+* Removed cURL SSL version, let it auto-negotiate the protocol.
 
 = 1.0.0 =
 
