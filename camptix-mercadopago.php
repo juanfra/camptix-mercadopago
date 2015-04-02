@@ -3,9 +3,9 @@
  * Plugin Name: CampTix MercadoPago
  * Plugin URI: https://github.com/juanfraa/camptix-mercadopago/
  * Description: MercadoPago Gateway for CampTix
- * Author: juanfra
+ * Author: juanfra, andrezrv
  * Author URI: http://juanfra.me
- * Version: 1.0.0
+ * Version: 1.0.1
  * License: GPLv2 or later
  * Text Domain: camptix-mp
  * Domain Path: /languages/
