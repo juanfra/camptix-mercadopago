@@ -77,9 +77,6 @@ class Camptix_MercadoPago {
 	 * @return void
 	 */
 	public function load_plugin_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'camptix-mp' );
-
-		load_textdomain( 'camptix-mp', trailingslashit( WP_LANG_DIR ) . 'camptix-mercadopago/camptix-mp-' . $locale . '.mo' );
 		load_plugin_textdomain( 'camptix-mp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
