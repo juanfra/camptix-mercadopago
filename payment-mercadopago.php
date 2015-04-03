@@ -147,13 +147,13 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// Check to see if the request was valid and return the token.
 		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 && ( strcmp( $response['response']['message'], 'OK' ) == 0 ) ) {
 
-			$token = json_decode( $response['body'] );
+			$token = wp_json_decode( $response['body'] );
 
 			$this->log( __( 'Received valid response from MercadoPago', 'camptix-mp' ), null, $this->options['client_id'] );
 
 			return $token->access_token;
 		} else {
-			$this->log( 'Received invalid response from MercadoPago. Error response: ' . print_r( $response, true ) );
+			$this->log( __( 'Received invalid response from MercadoPago.', 'camptix-mp' ), null, $response );
 		}
 
 		return null;
@@ -171,9 +171,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// Get the order information
 		$order = $this->get_order( $payment_token );
 
-		if ( 'yes' == $this->options['log'] ) {
-			//$this->log( 'Payment arguments for order: ' . $order, true );
-		}
+		$this->log( __( 'Payment arguments for order', 'camptix-mp' ), null, $order );
 
 		// Sets the MercadoPago item description.
 		$item_description = __( 'Event', 'camptix-mp' );
@@ -250,13 +248,13 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 	 */
 	protected function get_mercadopago_url( $order_args ) {
 
-		$args = json_encode( $order_args );
+		$args = wp_json_encode( $order_args );
 
 		$url = $this->payment_url . $this->get_client_credentials();
 
 		$params = array(
 			'body'          => $args,
-			'sslverify'     => false,
+			'sslverify'     => true,
 			'timeout'       => 60,
 			'headers'       => array(
 				'Accept'       => 'application/json',
@@ -267,9 +265,9 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		$response = wp_remote_post( $url, $params );
 
 		if ( ! is_wp_error( $response ) && $response['response']['code'] == 201 && ( strcmp( $response['response']['message'], 'Created' ) == 0 ) ) {
-			$checkout_info = json_decode( $response['body'] );
+			$checkout_info = wp_json_decode( $response['body'] );
 
-			$this->log( 'Payment link generated with success from MercadoPago' );
+			$this->log( __( 'Payment link generated with success from MercadoPago', 'camptix-mp' ), null, $response );
 
 			if ( 'yes' == $this->options['sandbox'] ) {
 				return esc_url( $checkout_info->sandbox_init_point );
@@ -279,7 +277,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 
 		} else {
 			if ( 'yes' == $this->options['log'] ) {
-				$this->log( 'Generate payment error response: ' . print_r( $response, true ) );
+				$this->log( __( 'Payment link response with error from MercadoPago', 'camptix-mp' ), null, $response );
 			}
 		}
 
@@ -324,7 +322,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		}
 
 		if ( ! in_array( $this->camptix_options['currency'], $this->supported_currencies ) ) {
-			die( __( 'The selected currency is not supported by this payment method.', 'camptix-mp' ) );
+			wp_die( __( 'The selected currency is not supported by this payment method.', 'camptix-mp' ) );
 		}
 
 		do_action( 'camptix_before_payment', $payment_token );
@@ -335,7 +333,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// generate the payment URL and if everything goes well, redirect.
 		if ( $mercadopago_url = $this->get_mercadopago_url( $mercadopago_args ) ) {
 			wp_redirect( esc_url_raw( $mercadopago_url ) );
-			die();
+			wp_die();
 		} else {
 			// else, trigger the Failed payment action.
 			return $this->payment_result( $payment_token, CampTix_Plugin::PAYMENT_STATUS_FAILED );
@@ -411,14 +409,12 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		global $camptix;
 
 		$this->log( sprintf( 'Running payment_cancel. Request data attached.' ), null, $_REQUEST );
-		$this->log( sprintf( 'Running payment_cancel. Server data attached.' ), null, $_SERVER );
 
 		$payment_token = ( isset( $_REQUEST['tix_payment_token'] ) ) ? trim( $_REQUEST['tix_payment_token'] ) : '';
 
 		if ( ! $payment_token ) {
-			die( 'empty token' );
+			wp_die( 'empty token' );
 		}
-
 
 		$attendees = get_posts( array(
 			'posts_per_page' => 1,
@@ -435,7 +431,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		) );
 
 		if ( ! $attendees ) {
-			die( 'attendees not found' );
+			wp_die( 'attendees not found' );
 		}
 
 		// Set the associated attendees to cancelled.
@@ -456,7 +452,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 			return false;
 		}
 
-		$this->log( __( 'Checking IPN request...', 'camptix-mp' ) );
+		$this->log( __( 'Checking IPN request...', 'camptix-mp' ), null, $data );
 
 		if ( 'yes' == $this->options['sandbox'] ) {
 			$ipn_url = $this->sandbox_ipn_url;
@@ -468,7 +464,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 
 		// Send back post vars.
 		$params = array(
-			'sslverify' => false,
+			'sslverify' => true,
 			'timeout'   => 60,
 			'headers'   => array(
 				'Accept'       => 'application/json',
@@ -479,12 +475,12 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// GET a response.
 		$response = wp_remote_get( $url, $params );
 
-		$this->log( 'IPN Response: ' . print_r( $response, true ) );
+		$this->log( __( 'IPN Response', 'camptix-mp' ), null, $response );
 
 		// Check to see if the request was valid.
 		if ( ! is_wp_error( $response ) && 200 == $response['response']['code'] ) {
 
-			$body = json_decode( $response['body'] );
+			$body = wp_json_decode( $response['body'] );
 
 			$this->log( __( 'Received valid IPN response from MercadoPago', 'camptix-mp' ) );
 
