@@ -5,7 +5,7 @@
  * Description: MercadoPago Gateway for CampTix
  * Author: juanfra, andrezrv
  * Author URI: http://juanfra.me
- * Version: 1.0.1
+ * Version: 1.0.2
  * License: GPLv2 or later
  * Text Domain: camptix-mp
  * Domain Path: /languages/
@@ -27,7 +27,7 @@ class Camptix_MercadoPago {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.2';
 
 	/**
 	 * Instance of this class.
@@ -77,9 +77,6 @@ class Camptix_MercadoPago {
 	 * @return void
 	 */
 	public function load_plugin_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'camptix-mp' );
-
-		load_textdomain( 'camptix-mp', trailingslashit( WP_LANG_DIR ) . 'camptix-mercadopago/camptix-mp-' . $locale . '.mo' );
 		load_plugin_textdomain( 'camptix-mp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
