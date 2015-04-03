@@ -1,48 +1,85 @@
 === CampTix MercadoPago ===
 Contributors: juanfra, andrezrv
-Tags: camptix, mercadopago, tickets, wordcamp
-Requires at least: 3.6
+Tags: camptix, mercadopago, tickets, wordcamp, event ticketing
+Requires at least: 4.1
 Tested up to: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Stable Tag: 1.0.1
+Stable Tag: 1.0.2
 
-Adds MercadoPago gateway to the CampTix plugin
+MercadoPago payment gateway for CampTix. The simple way to sell tickets for your event in Latin american countries.
 
 == Description ==
 
 ### Add MercadoPago gateway to CampTix ###
 
-This plugin adds MercadoPago gateway to [CampTix](wordpress.org/extend/plugins/camptix/).
+This plugin adds the [MercadoPago](http://mercadopago.com) payment gateway for [CampTix](http://wordpress.org/plugins/camptix/).
 
-With this plugin, users from different Latin American countries (Argentina, Brazil, Colombia, Venezuela and Mexico) will be able to process payments through one of the main payment processors, [MercadoPago](http://mercadopago.com)
+With this plugin, users from different countries in Latin America (Argentina, Brazil, Colombia, Venezuela and Mexico) will be able to process their event ticket sales through one of the main payment processors, [MercadoPago](http://mercadopago.com).
 
-Please notice that CampTix must be installed and active.
+= Configuration =
+
+You will need to get your MercadoPago credentials. You can get your "Client_id" and "Client_secret" in these different sites(according to your country of residence):
+
+* [MercadoPago Argentina](https://www.mercadopago.com/mla/herramientas/aplicaciones)
+* [MercadoPago Brazil](https://www.mercadopago.com/mlb/ferramentas/aplicacoes)
+* [MercadoPago Colombia](https://www.mercadopago.com/mco/herramientas/aplicaciones)
+* [MercadoPago Mexico](https://www.mercadopago.com/mlm/herramientas/aplicaciones)
+* [MercadoPago Venezuela](https://www.mercadopago.com/mlv/herramientas/aplicaciones)
+
+= Currencies =
+
+With this extension, you can take the payments in the following currencies:
+
+* Argentine Peso
+* Brazilian Real
+* Colombian Peso
+* Mexican Peso
+* Venezuelan Bolivar
+
+= Requirements =
+
+Please notice that [CampTix](http://wordpress.org/plugins/camptix/) must be installed and active.
 
 = Contribute =
 
-You can contribute to the source code in our [GitHub](https://github.com/juanfraa/camptix-mercadopago) page.
+You can contribute to the code in the [GitHub](https://github.com/juanfraa/camptix-mercadopago) repository.
 
 == Installation ==
 
-* Upload plugin files to your plugins folder, or install using WordPress built-in "Add New" Plugin installer;
+* Upload the plugin files to your plugins folder, or install the plugin using the WordPress built-in "Add New" Plugin installer;
 * Activate the plugin;
-* Navigate to CampTix -> Setup -> Payment, active the MercadoPago and fill in your MercadoPago information.
+* Navigate to CampTix > Setup > Payment - Activate MercadoPago, and fill in your MercadoPago account details.
 
 == Frequently Asked Questions ==
 
 = What is the plugin license? =
 
-* This plugin is released under a GPL license.
+* This plugin is released under the GPL license.
 
 = What is needed to use this plugin? =
 
 * [CampTix](wordpress.org/extend/plugins/camptix/) installed and active;
 * An account on [MercadoPago](http://mercadopago.com/).
+* Your "Client_id" and "Client_secret" from [MercadoPago](http://mercadopago.com/).
 
 
 == Changelog ==
+
+= 1.0.2: April 3, 2015 =
+
+* Removed unnecessary locale/load_textdomain functionalities.
+* Removed option to log (events will be automatically logged from now on)
+* Improved code. Added some brace styling to fulfil the WP coding standards.
+* Replaced die() with wp_die()
+* Replaced json_encode() with wp_json_encode() - (WP4.1 is now a requirement)
+* Replaced json_decode() with wp_json_decode() - (WP4.1 is now a requirement)
+* Fixed data logging.
+* Set sslverify to true everywhere.
+* Updated strings and translation files.
+* Updated plugin description (Fixed camptix link and added some more information).
+
 
 = 1.0.1: April 2, 2015 =
 
