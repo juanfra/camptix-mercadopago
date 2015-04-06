@@ -6,7 +6,7 @@ Tested up to: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Stable Tag: 1.0.2
+Stable Tag: 1.0.3
 
 MercadoPago payment gateway for CampTix. The simple way to sell tickets for your event in Latin american countries.
 
@@ -66,6 +66,11 @@ You can contribute to the code in the [GitHub](https://github.com/juanfraa/campt
 
 
 == Changelog ==
+
+= 1.0.3: April 6, 2015 =
+
+* Re-added security checks to fix tracking error.
+* Quck code changes requested by the meta team.
 
 = 1.0.2: April 3, 2015 =
 

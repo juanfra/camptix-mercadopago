@@ -4,6 +4,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
+if ( class_exists( 'CampTix_Payment_Method' ) && ! class_exists( 'CampTix_Payment_Method_MercadoPago' ) ) :
 /**
  * Implements the MercadoPago payment gateway.
  */
@@ -147,7 +148,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// Check to see if the request was valid and return the token.
 		if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 && ( strcmp( $response['response']['message'], 'OK' ) == 0 ) ) {
 
-			$token = wp_json_decode( $response['body'] );
+			$token = json_decode( $response['body'] );
 
 			$this->log( __( 'Received valid response from MercadoPago', 'camptix-mp' ), null, $this->options['client_id'] );
 
@@ -265,7 +266,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		$response = wp_remote_post( $url, $params );
 
 		if ( ! is_wp_error( $response ) && $response['response']['code'] == 201 && ( strcmp( $response['response']['message'], 'Created' ) == 0 ) ) {
-			$checkout_info = wp_json_decode( $response['body'] );
+			$checkout_info = json_decode( $response['body'] );
 
 			$this->log( __( 'Payment link generated with success from MercadoPago', 'camptix-mp' ), null, $response );
 
@@ -333,7 +334,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// generate the payment URL and if everything goes well, redirect.
 		if ( $mercadopago_url = $this->get_mercadopago_url( $mercadopago_args ) ) {
 			wp_redirect( esc_url_raw( $mercadopago_url ) );
-			wp_die();
+			die();
 		} else {
 			// else, trigger the Failed payment action.
 			return $this->payment_result( $payment_token, CampTix_Plugin::PAYMENT_STATUS_FAILED );
@@ -480,7 +481,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		// Check to see if the request was valid.
 		if ( ! is_wp_error( $response ) && 200 == $response['response']['code'] ) {
 
-			$body = wp_json_decode( $response['body'] );
+			$body = json_decode( $response['body'] );
 
 			$this->log( __( 'Received valid IPN response from MercadoPago', 'camptix-mp' ) );
 
@@ -495,8 +496,11 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 
 
 } // Close CampTix_Payment_Method_MercadoPago class.
+endif;
 
 /**
  * Register the Gateway in CampTix.
  */
-camptix_register_addon( 'CampTix_Payment_Method_MercadoPago' );
+if ( function_exists( 'camptix_register_addon' ) ) {
+	camptix_register_addon( 'CampTix_Payment_Method_MercadoPago' );
+}
