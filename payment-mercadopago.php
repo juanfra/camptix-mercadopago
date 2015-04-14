@@ -296,12 +296,12 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		if ( empty( $_REQUEST['tix_payment_method'] ) || 'mercadopago' !== $_REQUEST['tix_payment_method'] )
 			return;
 
-		if ( isset( $_GET['tix_action'] ) ) {
+		if ( isset( $_REQUEST['tix_action'] ) ) {
 
-			if ( 'payment_cancel' == $_GET['tix_action'] )
+			if ( 'payment_cancel' == $_REQUEST['tix_action'] )
 				$this->payment_cancel();
 
-			if ( 'payment_return' == $_GET['tix_action'] )
+			if ( 'payment_return' == $_REQUEST['tix_action'] )
 				$this->payment_return();
 
 		}
