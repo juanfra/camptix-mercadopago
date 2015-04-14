@@ -277,9 +277,9 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 			}
 
 		} else {
-			if ( 'yes' == $this->options['log'] ) {
-				$this->log( __( 'Payment link response with error from MercadoPago', 'camptix-mp' ), null, $response );
-			}
+
+			$this->log( __( 'Payment link response with error from MercadoPago', 'camptix-mp' ), null, $response );
+
 		}
 
 		return false;
@@ -382,6 +382,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		$payment_token = ( isset( $_REQUEST['tix_payment_token'] ) ) ? trim( $_REQUEST['tix_payment_token'] ) : '';
 
 		if ( empty( $payment_token ) ) {
+			$this->log( __( 'Empty token.', 'camptix-mp' ), null, $_REQUEST );
 			return;
 		}
 
@@ -395,7 +396,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 
 
 		} else {
-			// IPN not valid, or failed.
+			$this->log( __( 'IPN not valid, or failed.', 'camptix-mp' ), null, $_REQUEST );
 			return $this->payment_result( $payment_token, CampTix_Plugin::PAYMENT_STATUS_FAILED );
 		}
 
@@ -414,6 +415,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		$payment_token = ( isset( $_REQUEST['tix_payment_token'] ) ) ? trim( $_REQUEST['tix_payment_token'] ) : '';
 
 		if ( ! $payment_token ) {
+			$this->log( __( 'Empty token.', 'camptix-mp' ), null, $_REQUEST );
 			wp_die( 'empty token' );
 		}
 
@@ -432,6 +434,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 		) );
 
 		if ( ! $attendees ) {
+			$this->log( __( 'Atendees not found.', 'camptix-mp' ), null, $_REQUEST );
 			wp_die( 'attendees not found' );
 		}
 
