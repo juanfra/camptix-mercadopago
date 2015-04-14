@@ -385,7 +385,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 			return;
 		}
 
-		$data = $this->check_ipn_request_is_valid( $_GET );
+		$data = $this->check_ipn_request_is_valid( $_REQUEST );
 
 		if ( $data ) {
 
@@ -483,7 +483,7 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 
 			$body = json_decode( $response['body'] );
 
-			$this->log( __( 'Received valid IPN response from MercadoPago', 'camptix-mp' ) );
+			$this->log( __( 'Received valid IPN response from MercadoPago', 'camptix-mp' ), null, $body );
 
 			return $body;
 
