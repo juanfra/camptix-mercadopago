@@ -452,9 +452,11 @@ class CampTix_Payment_Method_MercadoPago extends CampTix_Payment_Method {
 	 */
 	public function check_ipn_request_is_valid( $data ) {
 
-		if ( ! isset( $data['collection_id'] ) ) {
+		if ( ! isset( $data['collection_id'] ) && ! isset( $data['id'] ) ) {
 			return false;
 		}
+
+		$data['collection_id'] = ! empty( $data['collection_id'] ) ? $data['collection_id'] : $data['id'];
 
 		$this->log( __( 'Checking IPN request...', 'camptix-mp' ), null, $data );
 
